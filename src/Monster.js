@@ -20,6 +20,7 @@ export default class Monster extends Phaser.GameObjects.Sprite{
 		this.on('pointerdown', (pointer) => {
 			this.wohSound.play();
 			this.teleport(false);
+			this.scene.hit(this);
 		});
 
 		this.counter = 0;
@@ -27,7 +28,7 @@ export default class Monster extends Phaser.GameObjects.Sprite{
 
 	update(time, delta){
 		this.counter ++;
-		if(this.counter > 35){
+		if(this.counter > 45){
 			this.teleport();
 		}
 	}

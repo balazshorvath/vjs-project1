@@ -6,7 +6,8 @@ export default class TitleScene extends Phaser.Scene{
 		super({key: 'TitleScene'});
 
 		this.title = 'Project 1';
-		this.blinkRate = 500;
+		this.blinkRate = 5;
+		this.alphaDelta = 0.01;
 		this.startKey = null;
 		this.pressX = null;
 	}
@@ -21,7 +22,7 @@ export default class TitleScene extends Phaser.Scene{
 
 	update(time, delta){
 
-		// console.log(delta)
+		console.log(delta)
 
 		if(this.startKey.isDown){
 			this.scene.stop('TitleScene');
@@ -30,8 +31,15 @@ export default class TitleScene extends Phaser.Scene{
 
 		this.blinkRate -= delta;
 		if(this.blinkRate < 0){
-			this.pressX.alpha = this.pressX.alpha === 1 ? 0 : 1;
-			this.blinkRate = 500;
+			this.pressX.alpha -= this.alphaDelta;
+			if (this.pressX.alpha <= 0.0){
+				this.pressX.alpha = 0.0;
+				this.alphaDelta *= -1.0; 
+			}else if (this.pressX.alpha >= 1.0){
+				this.pressX.alpha = 1.0;
+				this.alphaDelta *= -1.0;
+			}
+			this.blinkRate = 5;
 		}
 	}
 }
